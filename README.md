@@ -1,1 +1,1 @@
-# ImageMagick
+# ImageProcessor
