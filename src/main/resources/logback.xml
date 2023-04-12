@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+<!--<configuration debug="true">-->
+    <springProperty scope="context" name="loggingDir" source="service.log.directory"/>
+    <springProperty scope="context" name="loggingFile" source="service.log.file"/>
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <file>${loggingDir}/${loggingFile}.log</file>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                %d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n
+            </Pattern>
+        </layout>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>
+                ${loggingDir}/archived/loggingFile_%d{dd-MM-yyyy}.log
+            </fileNamePattern>
+            <maxHistory>60</maxHistory>
+            <totalSizeCap>1GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
+    <logger name="com.org.mockup-generator" level="debug" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <root level="error">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+</configuration>
